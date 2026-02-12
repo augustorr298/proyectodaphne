@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema de Control de Asistencias Inteligente - SCAI">
+    <title>SCAI - Sistema de Control de Asistencias</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- ===== LOGIN ===== -->
+    <div id="loginScreen" class="screen active">
+        <div class="login-container">
+            <div class="login-logo">
+                <div class="logo-icon">📋</div>
+                <h1>SCAI</h1>
+                <p class="login-subtitle">Sistema de Control de Asistencias Inteligente</p>
+                <p class="login-institution">Universidad Tecnológica de San Juan del Río</p>
+            </div>
+            <form id="loginForm" class="login-form">
+                <div class="input-group">
+                    <label for="loginUser">Usuario</label>
+                    <input type="text" id="loginUser" placeholder="Ingresa tu usuario" required>
+                </div>
+                <div class="input-group">
+                    <label for="loginPass">Contraseña</label>
+                    <input type="password" id="loginPass" placeholder="Ingresa tu contraseña" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Iniciar Sesión</button>
+                <p id="loginError" class="error-msg hidden">Usuario o contraseña incorrectos</p>
+            </form>
+            <div class="login-hint">
+                <p>Demo: <strong>maestro1</strong> / pass123 &nbsp;|&nbsp; <strong>admin</strong> / admin123</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav id="navbar" class="navbar hidden">
+        <div class="nav-brand">
+            <span class="nav-logo">📋</span>
+            <span class="nav-title">SCAI</span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <!-- Filled dynamically -->
+        </div>
+        <div class="nav-user">
+            <span id="navUserName"></span>
+            <button id="logoutBtn" class="btn btn-sm btn-outline">Salir</button>
+        </div>
+    </nav>
+
+    <!-- ===== DASHBOARD MAESTRO ===== -->
+    <div id="dashboardScreen" class="screen">
+        <div class="container">
+            <div class="page-header">
+                <h2>Panel del Maestro</h2>
+                <p class="page-desc">Resumen de asistencias y accesos rápidos</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="statGroups">0</span>
+                        <span class="stat-label">Grupos</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🎓</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="statStudents">0</span>
+                        <span class="stat-label">Alumnos</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📅</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="statToday">0</span>
+                        <span class="stat-label">Registros Hoy</span>
+                    </div>
+                </div>
+                <div class="stat-card accent">
+                    <div class="stat-icon">📌</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="statSession">—</span>
+                        <span class="stat-label">Sesión Activa</span>
+                    </div>
+                </div>
+            </div>
+            <div class="quick-actions">
+                <h3>Acciones Rápidas</h3>
+                <div class="actions-grid">
+                    <button class="action-card" onclick="navigateTo('attendance')">
+                        <span class="action-icon">✅</span>
+                        <span>Pasar Lista</span>
+                    </button>
+                    <button class="action-card" onclick="navigateTo('pin')">
+                        <span class="action-icon">🔑</span>
+                        <span>Sesión PIN</span>
+                    </button>
+                    <button class="action-card" onclick="navigateTo('history')">
+                        <span class="action-icon">📜</span>
+                        <span>Historial</span>
+                    </button>
+                    <button class="action-card" onclick="navigateTo('reports')">
+                        <span class="action-icon">📊</span>
+                        <span>Reportes</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== REGISTRO ASISTENCIA MANUAL ===== -->
+    <div id="attendanceScreen" class="screen">
+        <div class="container">
+            <div class="page-header">
+                <h2>Registro de Asistencia</h2>
+                <p class="page-desc">Selecciona un grupo y pasa lista manualmente</p>
+            </div>
+            <div class="filter-bar">
+                <div class="input-group">
+                    <label for="attGroup">Grupo</label>
+                    <select id="attGroup"></select>
+                </div>
+                <div class="input-group">
+                    <label for="attDate">Fecha</label>
+                    <input type="date" id="attDate">
+                </div>
+                <button class="btn btn-primary" onclick="loadAttendanceList()">Cargar Lista</button>
+            </div>
+            <div id="attendanceList" class="attendance-list">
+                <p class="empty-state">Selecciona un grupo y fecha para cargar la lista</p>
+            </div>
+            <div id="attendanceActions" class="form-actions hidden">
+                <button class="btn btn-success" onclick="saveAttendance()">💾 Guardar Asistencia</button>
+                <button class="btn btn-outline" onclick="markAllPresent()">✅ Marcar Todos Presente</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SESIÓN PIN ===== -->
+    <div id="pinScreen" class="screen">
+        <div class="container">
+            <div class="page-header">
+                <h2>Sesión con Código PIN</h2>
+                <p class="page-desc">Genera un código para que los alumnos registren su asistencia</p>
+            </div>
+            <!-- Maestro: Crear sesión -->
+            <div id="pinTeacherView">
+                <div class="filter-bar">
+                    <div class="input-group">
+                        <label for="pinGroup">Grupo</label>
+                        <select id="pinGroup"></select>
+                    </div>
+                    <div class="input-group">
+                        <label for="pinDuration">Duración (min)</label>
+                        <select id="pinDuration">
+                            <option value="5">5 minutos</option>
+                            <option value="10" selected>10 minutos</option>
+                            <option value="15">15 minutos</option>
+                            <option value="30">30 minutos</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" id="btnCreatePin" onclick="createPinSession()">🔑 Generar
+                        PIN</button>
+                </div>
+                <div id="pinDisplay" class="pin-display hidden">
+                    <p class="pin-label">Código de Asistencia</p>
+                    <div class="pin-code" id="pinCode"></div>
+                    <div class="pin-timer">
+                        <span>Expira en: </span>
+                        <span id="pinTimer" class="timer-value">--:--</span>
+                    </div>
+                    <div class="pin-info">
+                        <p>Grupo: <strong id="pinGroupName"></strong></p>
+                        <p>Registrados: <strong id="pinCount">0</strong> alumnos</p>
+                    </div>
+                    <button class="btn btn-danger" onclick="closePinSession()">✖ Cerrar Sesión</button>
+                </div>
+                <div id="pinStudentsList" class="hidden">
+                    <h3>Alumnos registrados</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Matrícula</th>
+                                <th>Nombre</th>
+                                <th>Hora</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pinStudentsBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== VISTA ALUMNO (PIN) ===== -->
+    <div id="studentPinScreen" class="screen">
+        <div class="container">
+            <div class="login-container" style="margin-top: 2rem;">
+                <div class="login-logo">
+                    <div class="logo-icon">🎓</div>
+                    <h1>Registro de Asistencia</h1>
+                    <p class="login-subtitle">Ingresa tu matrícula y el código PIN</p>
+                </div>
+                <form id="studentPinForm" class="login-form">
+                    <div class="input-group">
+                        <label for="studentId">Matrícula</label>
+                        <input type="text" id="studentId" placeholder="Ej: MAT001" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="studentPin">Código PIN</label>
+                        <input type="text" id="studentPin" placeholder="4 dígitos" maxlength="4" required
+                            class="pin-input">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Registrar Asistencia</button>
+                    <p id="studentPinError" class="error-msg hidden"></p>
+                    <p id="studentPinSuccess" class="success-msg hidden"></p>
+                </form>
+                <div class="login-hint">
+                    <button class="btn btn-outline btn-sm" onclick="navigateTo('login')">← Volver al Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== HISTORIAL ===== -->
+    <div id="historyScreen" class="screen">
+        <div class="container">
+            <div class="page-header">
+                <h2>Historial de Asistencias</h2>
+                <p class="page-desc">Consulta registros anteriores</p>
+            </div>
+            <div class="filter-bar">
+                <div class="input-group">
+                    <label for="histGroup">Grupo</label>
+                    <select id="histGroup">
+                        <option value="">Todos</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="histDateFrom">Desde</label>
+                    <input type="date" id="histDateFrom">
+                </div>
+                <div class="input-group">
+                    <label for="histDateTo">Hasta</label>
+                    <input type="date" id="histDateTo">
+                </div>
+                <button class="btn btn-primary" onclick="loadHistory()">🔍 Buscar</button>
+            </div>
+            <div id="historyResults">
+                <p class="empty-state">Usa los filtros para consultar el historial</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== REPORTES ===== -->
+    <div id="reportsScreen" class="screen">
+        <div class="container">
+            <div class="page-header">
+                <h2>Reportes de Asistencia</h2>
+                <p class="page-desc">Resumen y estadísticas por grupo</p>
+            </div>
+            <div class="filter-bar">
+                <div class="input-group">
+                    <label for="repGroup">Grupo</label>
+                    <select id="repGroup"></select>
+                </div>
+                <button class="btn btn-primary" onclick="generateReport()">📊 Generar Reporte</button>
+                <button class="btn btn-outline" onclick="exportCSV()">📥 Exportar CSV</button>
+            </div>
+            <div id="reportResults">
+                <p class="empty-state">Selecciona un grupo para generar el reporte</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PANEL ADMIN ===== -->
+    <div id="adminScreen" class="screen">
+        <div class="container">
+            <div class="page-header">
+                <h2>Panel de Administración</h2>
+                <p class="page-desc">Gestión de grupos, alumnos y configuración</p>
+            </div>
+            <div class="admin-tabs">
+                <button class="tab-btn active" onclick="switchAdminTab('groups')">Grupos</button>
+                <button class="tab-btn" onclick="switchAdminTab('students')">Alumnos</button>
+                <button class="tab-btn" onclick="switchAdminTab('users')">Usuarios</button>
+            </div>
+
+            <!-- Tab: Grupos -->
+            <div id="adminGroupsTab" class="admin-tab active">
+                <div class="form-inline">
+                    <input type="text" id="newGroupName" placeholder="Nombre del grupo (ej: DS03SM-24)">
+                    <button class="btn btn-primary" onclick="addGroup()">+ Agregar Grupo</button>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Grupo</th>
+                            <th>Alumnos</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminGroupsBody"></tbody>
+                </table>
+            </div>
+
+            <!-- Tab: Alumnos -->
+            <div id="adminStudentsTab" class="admin-tab hidden">
+                <div class="filter-bar">
+                    <div class="input-group">
+                        <label for="adminStudentGroup">Grupo</label>
+                        <select id="adminStudentGroup"></select>
+                    </div>
+                </div>
+                <div class="form-inline">
+                    <input type="text" id="newStudentId" placeholder="Matrícula">
+                    <input type="text" id="newStudentName" placeholder="Nombre completo">
+                    <button class="btn btn-primary" onclick="addStudent()">+ Agregar Alumno</button>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Matrícula</th>
+                            <th>Nombre</th>
+                            <th>Grupo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminStudentsBody"></tbody>
+                </table>
+            </div>
+
+            <!-- Tab: Usuarios -->
+            <div id="adminUsersTab" class="admin-tab hidden">
+                <div class="form-inline">
+                    <input type="text" id="newUserName" placeholder="Usuario">
+                    <input type="password" id="newUserPass" placeholder="Contraseña">
+                    <select id="newUserRole">
+                        <option value="maestro">Maestro</option>
+                        <option value="admin">Administrador</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="addUser()">+ Agregar Usuario</button>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Rol</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminUsersBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student access added dynamically by JS -->
+
+    <!-- Toast notification -->
+    <div id="toast" class="toast hidden">
+        <span id="toastMsg"></span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

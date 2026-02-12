@@ -1,0 +1,316 @@
+ACTIVIDAD EVALUATIVA
+
+REMEDIAL
+
+JANETH CABALLERO PIÑA
+ANGEL DAMIAN BARTOLO MARTINEZ
+URIEL AUGUSTO ROMERO RODRIGUEZ
+
+DS02SM-24
+02/11/26
+
+PRIMERA UNIDAD
+
+UNIVERSIDAD TECNOLÓGICA DE SAN JUAN DEL RÍO 
+
+
+
+ Descripción del Sistema
+El Sistema de Control de Asistencias Inteligente (SCAI) es una solución tecnológica diseñada para registrar, consultar y generar reportes de asistencia de estudiantes mediante una aplicación móvil conectada a una base de datos central.
+Permite:
+Registro de asistencia diaria
+
+
+Consulta de historial
+
+
+Generación de reportes
+
+
+Panel administrativo
+
+Ruta B - Tecnologías de la Información:
+Mockup de App:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Diagrama de Software:
+
+
+Explicación:
+Frontend: Aplicación móvil
+
+
+Backend: Servidor con API REST
+
+
+Base de datos: MySQL / Firebase
+
+
+Administrador accede vía panel web
+
+
+
+
+
+
+
+Flujo de Plataforma:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Flujo básico:
+Usuario inicia sesión
+
+
+Selecciona grupo
+
+
+Registra asistencia
+
+
+Se guarda en base de datos
+
+
+Se genera reporte
+
+ FASE 1 – PLANIFICACIÓN:
+Objetivo del Proyecto:
+Diseñar un prototipo funcional de un sistema de control de asistencias que permita optimizar el registro y consulta de información académica de manera digital, reduciendo errores manuales y facilitando la generación de reportes.
+Lista de Tareas:
+Definir problema
+
+
+Proponer solución tecnológica
+
+
+Diseñar mockups
+
+
+Crear diagrama de software
+
+
+Definir flujo del sistema
+
+
+Redactar documentación
+
+
+Integrar teoría de motivación
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Cronograma Simple:
+
+Día
+Actividad
+Día 1
+Planeación y asignación de roles
+Día 2
+Diseño de mockups
+Día 3
+Diagramas de Flujo
+Día 4
+Redacción de Documentos
+
+
+
+Recursos:
+Computadoras
+Internet
+Software de diseño (Figma / Canva)
+Google Docs / Word
+Conocimientos básicos de programación
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ FASE 2 – ROLES Y LIDERAZGO
+
+
+Rol
+Responsable
+Líder
+ Uriel Augusto Romero Rodriguez
+Planeador
+Janeth Caballero Piña
+Responsable Técnico
+ Uriel Augusto Romero Rodriguez
+Documentador
+ Angel Damian Bartolo Martinez
+
+
+Justificación de liderazgo
+El líder coordinó tareas, organizó tiempos y tomó decisiones estratégicas para cumplir con el tiempo limitado.
+
+
+
+
+
+
+
+
+
+
+
+
+
+FASE 3 – TOMA DE DECISIONES
+Decisión Importante
+Elegir entre desarrollar un prototipo funcional con código real o realizar un diseño estructural completo sin programación.
+Opciones consideradas
+Programar versión básica funcional
+
+
+Diseñar prototipo conceptual detallado
+
+
+Decisión Final
+Se eligió realizar un prototipo conceptual detallado.
+Justificación
+Debido al tiempo limitado y recursos básicos, resultaba más viable entregar un diseño bien estructurado que un sistema incompleto.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ FASE 4 – FLEXIBILIDAD
+Cambio introducido
+Reducción del tiempo de desarrollo a la mitad.
+Adaptación
+Reorganización de tareas
+
+
+Eliminación de funciones secundarias
+
+
+Priorización del diseño principal
+
+
+Resultado
+Se logró entregar el proyecto completo optimizando recursos.
+
+ FASE 5 – EMPATÍA
+Conflicto ocurrido
+Diferencia de opiniones sobre el enfoque técnico del proyecto.
+Resolución
+Se realizó votación democrática considerando argumentos técnicos.
+Aprendizaje
+La comunicación y escucha activa mejora la calidad del trabajo en equipo.
+
+
+TEORÍA DE MOTIVACIÓN
+Se eligió: Maslow
+Aplicación:
+Necesidades básicas: organización clara
+
+
+Seguridad: roles definidos
+
+
+Afiliación: trabajo colaborativo
+
+
+Reconocimiento: valoración de aportaciones
+
+
+Autorrealización: entrega exitosa del proyecto
+
+
+Qué funcionó
+División clara de tareas
+
+
+Reconocimiento del esfuerzo
+
+
+Qué no funcionó
+Presión de tiempo generó estrés inicial
+
+
+
